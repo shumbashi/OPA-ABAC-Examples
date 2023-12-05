@@ -1,0 +1,37 @@
+package abac
+
+# User attributes
+user_attributes := {
+    "User1": {"location": "EU", "title": "employee"},
+    "User2": {"location": "US", "title": "employee"},
+    "User3": {"location": "EU", "title": "manager"}
+}
+# Document attributes
+document_attributes := {
+    "Doc1": {"classification": "GDPR Protected"},
+    "Doc2": {"classification": "Non-sensitive"}
+}
+# Default deny
+default allow = false
+# EU employees can perform any action on GDPR Protected Document
+allow {
+    # Lookup the user's attributes
+    user := user_attributes[input.user]
+    # Check that the user is an employee
+    user.title == "employee"
+    # Check that the employee is based in the EU
+    user.location == "EU"
+    # Check that the document is GDPR Protected
+    document_attributes[input.document].classification == "GDPR Protected"
+}
+# Allow any employee to access non-GDPR-protected documents
+allow {
+    # Lookup the user's attributes
+    user := user_attributes[input.user]
+    # Check that the user is an employee
+    user.title == "employee"
+    # Lookup the document's attributes
+    document := document_attributes[input.document]
+    # Check that the document is not GDPR Protected
+    document.classification = "Non-sensitive"
+}

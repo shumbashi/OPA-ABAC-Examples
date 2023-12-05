@@ -1,0 +1,14 @@
+default allow = false
+ 
+allow = true {
+    input.method == "GET"
+    input.path = ["getSalary", user]
+    input.user == user
+}
+ 
+allow = true {
+    input.method == "GET"
+    input.path = ["getSalary", user]
+    managers := data.managers[input.user][_]
+    contains(managers, user)
+}
