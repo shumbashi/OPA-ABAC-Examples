@@ -31,7 +31,7 @@ curl http://localhost:8181/v1/policies/petshop --upload-file petshop-example.pol
 
 ### Uploading Data
 
-Data such as user, object, and environment attributes can be provided to OPA either separately using the `v1/data` endpoint or in the same request for authentication.
+Data such as user, object, and environment attributes can be provided to OPA either separately using the `v1/data` endpoint or in the same request for authentication. For more information, please refer to the [Data API Documentation](https://www.openpolicyagent.org/docs/latest/rest-api/#data-api).
 
 For the first method, we can upload prepared data for the provided examples using the file with `.data` extension and cURL. For example:
 
